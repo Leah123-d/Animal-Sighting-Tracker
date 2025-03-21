@@ -1,36 +1,71 @@
-// function AddIndividualForm({ openForm1}){
-//   return(
-//     <>
-//     {/* Open the modal using document.getElementById('ID').showModal() method */}
-//     {/* <button className="btn" onClick={handleClickForm1.showModal()}>Please complete to report a new sighting!</button> */}
-//     <dialog id="my_modal_1" className="modal" open={openForm1}>
-//       <div className="modal-box">
-//         <h3 className="font-bold text-lg">Hello!</h3>
-//         <div className="modal-action">
-//           <form onSubmit={createEvent} className="mt-6 flex flex-col gap-2 text-xs"> 
-//           {/* //the form data will update the state in the app component */}
-//           <label htmlFor="eventTitle">Event Name</label>
-//           <input id="eventTitle" type="text" placeholder="Type here" className="input" name="title" value={newEvent.title} onChange={handleChange} />
+import { useState } from 'react'
 
-//           <label htmlFor="description">Description</label>
-//           <input id="description" type="text" placeholder="Type here" className="input" name="details" value={newEvent.details} onChange={handleChange} />
+function AddIndividualForm({ openForm3, individuals }){
+  const [newIndividual, setNewIndividual] = useState(
+    {
+      nickname: "",
+      classification:"",
+      active_season:"",
+    }
+  )
 
-//           <label htmlFor="venue">Venue</label>
-//           <input id="venue" type="text" placeholder="Type here" className="input" name="venue" value={newEvent.venue} onChange={handleChange} />
+  const createIndividual = async (e) => {
+    e.preventDefault();
+    console.log("New individual submitted:", newIndividual);
 
-//           <label htmlFor="extras">Additional details</label>
-//           <textarea id="extras" placeholder="Parking Instructions.... Other event details...." className="textarea" name="extras" value={newEvent.extras} onChange={handleChange}></textarea>
-//           <div className="mt-6">
-//           <button className="btn btn-primary btn-block">Create Event</button>
-//           </div>
-//           </form>
-// {/* this will run the function to post the event to the DB  */}
-// {/* will need an onSubmit for your form */}
-//         </div>
-//       </div>
-//     </dialog>
-//     </>
-//   )
-// }
+    try{
+    const response = await fetch("/individuals", {
+      method: "Post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newIndividual),
+    });
+    if(!response.ok){
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    } 
+    const data = await response.json();
+    console.log("fetched data:", data);
 
-// export default AddIndividualForm;
+    setNewIndividual(data); //storing the database response
+
+    // if(data.response_code != 0){
+    //   console.log("no results found");
+      // setErrorHandle(true); //will come back to setting this error handling depending on response from the backend
+    //}
+    } catch(error){
+      console.error("error fetching data: ", error);
+    } 
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNewIndividual(prevIndiv => ({
+      ...prevIndiv,
+      [name]:value
+    }));
+  }
+  return(
+    <>
+    <dialog id="my_modal_1" className="modal" open={openForm3}>
+      <div className="modal-box">
+        <h3 className="font-bold text-lg">Again? Where?</h3>
+        <div className="modal-action">
+          <form  method="dialog" className="mt-6 flex flex-col gap-2 text-xs" onSubmit={createIndividual}> 
+           <label htmlFor="nickname">nickname</label>
+           <input id="nickname" type="text" placeholder="Type here" className="input" name="nickname" value={individuals.nickname} onChange={handleChange} />
+           <label htmlFor="classification">classification</label>
+           <input id="classification" type="text" placeholder="Type here" className="input" name="classification" value={individuals.classification} onChange={handleChange} />
+           <label htmlFor="active_season">active_season</label>
+           <input id="active_season" type="text" placeholder="Type here" className="input" name="active_season" value={individuals.active_season} onChange={handleChange} />
+           <div className="mt-6">
+           <button className="btn btn-primary btn-block">Add Individual</button>
+           </div>
+           </form>
+        </div>
+      </div>
+    </dialog>
+    </>
+  )
+}
+
+export default AddIndividualForm;
+

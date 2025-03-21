@@ -56,7 +56,7 @@ function AddSightingForm({ openForm2, sightings }){
         <div className="modal-action">
           <form method="dialog" onSubmit={createSighting}> 
               <label htmlFor="date_sighted"> date_sighted</label>
-              <input id="date_sighted" type="text" placeholder="Type here" className="input" name="date_sighted" value={sightings.date_sighted} onChange={handleChange}  />
+              <input id="date_sighted" type="date" placeholder="Type here" className="input" name="date_sighted" value={sightings.date_sighted} onChange={handleChange}  />
 
               <label htmlFor="individual_seen">individual_seen</label>
               <input id="individual_seen" type="text" placeholder="Type here" className="input" name="individual_seen" value={sightings.individual_seen} onChange={handleChange} />
