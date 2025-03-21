@@ -21,5 +21,15 @@
   padding: 2em;
 }
 
+button{
+  cursor: pointer;
+}
+
+.databaseContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 
 

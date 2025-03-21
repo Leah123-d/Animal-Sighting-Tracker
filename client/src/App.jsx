@@ -3,15 +3,17 @@ import { useState, useEffect } from 'react'
 import Homepage from './components/Homepage'
 import NavBar from './components/NavBar'
 import DatabaseDisplay from './components/DatabaseDisplay'
-import AddSightingForm from './components/AddSightingForm'
-import AddIndividualForm from './components/AddIndividualForm'
-import AddNewSpecies from './components/AddNewSpecies'
+// import AddSightingForm from './components/AddSightingForm'
+// import AddIndividualForm from './components/AddIndividualForm'
+// import AddNewSpecies from './components/AddNewSpecies'
 
 function App() {
-  const [species,setSpecies] = useState([]);
+  const [species, setSpecies] = useState([]);
   const [individuals,setIndividuals] = useState([]);
   const [sightings, setSightings] = useState([]);
   const [openForm1, setOpenForm1] = useState(false);
+  const [isEditOpen, setisEditOpen] = useState(false);
+  const [editData, setEditData] = useState("");
 
   const handleClickForm1 = (e) => {
     e.preventDefault();
@@ -26,7 +28,9 @@ function App() {
       if(!res.ok) throw new Error("Failed to fetch species");
       const data = await res.json();
       console.log("Fetched species: ", data)
-      return setSpecies(data);
+      setSpecies(data);
+      setEditData({...data});
+      setisEditOpen(true);
     } catch(error) {
       console.error("Error fetching species: ", error);
       //setErrorHandle(true); //would want to build out sending this to an error component 
@@ -53,7 +57,7 @@ function App() {
       const res = await fetch("/sightings");
       if(!res.ok) throw new Error("Failed to fetch sightings");
       const data = await res.json();
-      console.log("Fetched sightings: ", data)
+      console.log("Fetched all sightings: ", data)
       return setSightings(data);
     } catch(error) {
       console.error("Error fetching sightings: ", error);
@@ -88,7 +92,15 @@ function App() {
       <h1>Sightings data from database</h1>
       {sightings && <pre>{JSON.stringify(sightings, null, 2)}</pre>} */}
    
-    <DatabaseDisplay />
+    <DatabaseDisplay
+      species={species}
+      individuals={individuals}
+      sightings={sightings}
+      fetchSpecies={fetchSpecies}
+      editData={editData}
+      isEditOpen={isEditOpen}
+      setisEditOpen={setisEditOpen}
+      setEditData={setEditData} />
     </div>
     
   )

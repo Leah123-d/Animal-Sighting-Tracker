@@ -18,7 +18,8 @@ function NavBar({ handleClickForm1 }){
         </ul>
       </div>
         <div className="navbar-end">
-        {/* <a className="btn">Button</a> */}
+        <a className="btn">View Database</a>
+        {/* add a onclick to update the state from this click to render the database */}
       </div>
 
     </div>
