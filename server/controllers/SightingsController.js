@@ -55,7 +55,8 @@ export const updateSighting  = async (req,res) => {
 export const deleteSighting  = async (req,res) => {
   const { individual_seen } = req.params;
   try{
-    const result = await dbConnection.query("DELETE FROM sightings WHERE individual_seen = $1 RETURNING *", [individual_seen]);
+    const result = await dbConnection.query(`DELETE FROM sightings 
+                                            WHERE individual_seen = $1 RETURNING *`, [individual_seen]);
     if(result.rowCount === 0){
         return res.send(`species not found`);
     }
@@ -64,3 +65,18 @@ export const deleteSighting  = async (req,res) => {
         console.error(`Could not locate species with common_name: ${individual_seen}: `, error);
     }
 }
+
+export const fullOuterJoinSighting  = async (req,res) => {
+  const { id } = req.params;
+  try{
+    const result = await dbConnection.query(`SELECT sightings.id AS sightings_id, sightings.date_sighted, sightings.individual_seen, 
+                                            sightings.location_of_sighting, sightings.health, sightings.sighter_contact, 
+                                            sightings.season_spotted, sightings.created_at, individuals.nickname AS indiv_nickname 
+                                            FROM sightings FULL JOIN individuals ON sightings.id = individuals.id WHERE sightings.id = $1 OR individuals.id = $1`, [id]); 
+    res.json(result.rows[0]);
+  }catch (error) {
+    console.error('Error updating sighting: ', error);
+  }
+}
+
+

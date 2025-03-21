@@ -4,13 +4,14 @@ import { getSightings,
         createSighting,
         updateSighting,
         deleteSighting,
+        fullOuterJoinSighting,
  } from '../controllers/SightingsController.js';
 
 const router = express.Router();
 
-router.get("/", getSightings);
-
+router.get("/:id", fullOuterJoinSighting);
 router.get("/:individual_seen", getOneSighting);
+router.get("/", getSightings);
 router.post("/", createSighting);
 router.put("/:individual_seen", updateSighting);
 router.delete("/:individual_seen", deleteSighting);

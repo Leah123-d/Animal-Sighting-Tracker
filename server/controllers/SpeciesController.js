@@ -65,6 +65,19 @@ export const deleteSpecies = async (req,res) => {
     }
 }
 
+export const rightJoinSpecies = async(req, res) => {
+  const { id } = req.params;
+  try{
+    const result = await dbConnection.query(
+      "SELECT species.common_name AS species_name, individuals.nickname AS indiv_nickname, individuals.active_season AS indiv_active FROM species RIGHT JOIN individuals ON species.species = individuals.classification WHERE species.id = $1", [id]);
+    
+      res.json(result.rows[0]);
+  }catch (error){
+
+    console.error(`Could not locate species with common_name: ${id}: `, error);
+}
+} //order matters for other routes that require params, because the other routes may try to handle the requests. 
+
 //record for testing routes 
 // {
 //   "species": "bird",
