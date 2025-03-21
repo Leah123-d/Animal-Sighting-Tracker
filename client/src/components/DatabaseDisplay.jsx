@@ -128,7 +128,6 @@ function DatabaseDisplay({ species, individuals, sightings }){
           <th>classification</th>
           <th>active_season</th>
           <th>created_at</th>
-          <th>Edit</th>
           <th>Delete</th>
           </tr>
         </thead>
@@ -168,7 +167,6 @@ function DatabaseDisplay({ species, individuals, sightings }){
             <th>sighter_contact</th>
             <th>season_spotted</th>
             <th>created_at</th>
-            <th>Edit</th>
             <th>Delete</th>
             </tr>
           </thead>

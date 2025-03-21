@@ -3,21 +3,30 @@ import { useState, useEffect } from 'react'
 import Homepage from './components/Homepage'
 import NavBar from './components/NavBar'
 import DatabaseDisplay from './components/DatabaseDisplay'
-// import AddSightingForm from './components/AddSightingForm'
+import AddSightingForm from './components/AddSightingForm'
 import AddNewSpecies from './components/AddNewSpecies'
-// import AddIndividualForm from './components/AddIndividualForm'
+import AddIndividualForm from './components/AddIndividualForm'
 function App() {
   const [species, setSpecies] = useState([]);
   const [individuals,setIndividuals] = useState([]);
   const [sightings, setSightings] = useState([]);
   const [openForm1, setOpenForm1] = useState(false);
+  const [openForm2, setOpenForm2] = useState(false);
+  const [openForm3, setOpenForm3] = useState(false);
 
   const handleClickForm1 = (e) => {
     e.preventDefault();
-    console.log("handleClick in console");
     setOpenForm1((prev) => !prev); //will display form
-    alert("form1 open"); //alert user the form opened
   }
+  const handleClickForm2 = (e) => {
+    e.preventDefault();
+    setOpenForm2((prev) => !prev); //will display form
+  }
+  const handleClickForm3 = (e) => {
+    e.preventDefault();
+    setOpenForm3((prev) => !prev); //will display form
+  }
+
 
   const fetchSpecies = async () => { 
     try {
@@ -72,33 +81,31 @@ function App() {
 
   return (
     <div className = "component-container">
-      < NavBar 
-        handleClickForm1={handleClickForm1}/>
+      <NavBar 
+        handleClickForm1={handleClickForm1}
+        handleClickForm2={handleClickForm2}
+        handleClickForm3={handleClickForm3}/>
+
       {openForm1 &&
-      < AddNewSpecies 
+      <AddNewSpecies 
         species={species}
-        handleClickForm1={handleClickForm1}
         openForm1={openForm1}/>}
-      {/* {openForm1 &&
-      < AddSightingForm 
-        handleClickForm1={handleClickForm1}
-        openForm1={openForm1}/>} */}
-       <Homepage />
 
-      {/* <h1>Species Data from Database</h1>
-      {species && <pre>{JSON.stringify(species, null, 2)}</pre>}
-      <h1>Individuals data from database</h1>
-      {individuals && <pre>{JSON.stringify(individuals, null, 2)}</pre>}
-      <h1>Sightings data from database</h1>
-      {sightings && <pre>{JSON.stringify(sightings, null, 2)}</pre>} */}
-   
-    <DatabaseDisplay
-      species={species}
-      individuals={individuals}
-      sightings={sightings}
-       />
-    {/* <AddSightingForm /> */}
-
+      {openForm2 &&
+      <AddSightingForm 
+        sightings={sightings}
+        openForm2={openForm2}/>}
+      {openForm3 &&
+      <AddIndividualForm 
+        individuals={individuals}
+        openForm3={openForm3}
+      />}
+      <Homepage />   
+      <DatabaseDisplay
+        species={species}
+        individuals={individuals}
+        sightings={sightings}
+        />
     </div>
     
   )

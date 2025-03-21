@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 
-function AddNewSpecies({ openForm1, species, handleClickForm1 }){
+function AddNewSpecies({ openForm1, species }){
   const [newSpecies, setNewSpecies] = useState(
     {
       species: "",
@@ -48,14 +48,11 @@ function AddNewSpecies({ openForm1, species, handleClickForm1 }){
   }
   return(
     <>
-    {/* Open the modal using document.getElementById('ID').showModal() method */}
-    {/* <button className="btn" onClick={handleClickForm1.showModal()}>Please complete to report a new species!</button> */}
     <dialog id="my_modal_1" className="modal" open={openForm1}>
       <div className="modal-box">
-        <h3 className="font-bold text-lg">Hello!</h3>
+        <h3 className="font-bold text-lg">oh! New species?</h3>
         <div className="modal-action">
-
-            <form onSubmit={createSpecies} className="mt-6 flex flex-col gap-2 text-xs"> 
+          <form onSubmit={createSpecies} className="mt-6 flex flex-col gap-2 text-xs"> 
            {/* //the form data will update the state in the app component */}
            <label htmlFor="species">Species</label>
            <input id="species" type="text" placeholder="Type here" className="input" name="species" value={species.species} onChange={handleChange} />

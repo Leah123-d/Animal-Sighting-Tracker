@@ -1,9 +1,6 @@
 import { LuBinoculars } from "react-icons/lu";
 
-//I want to change the behavior of rendering the granchild. 
-//I need it to appear onClick and so it would need to be its own child with the event passed from the child 
-
-function NavBar({ handleClickForm1 }){
+function NavBar({ handleClickForm1,handleClickForm2,handleClickForm3 }){
    
   return(
     <div className="navbar bg-base-100 shadow-sm">
@@ -12,9 +9,9 @@ function NavBar({ handleClickForm1 }){
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
-        <li><a onClick={handleClickForm1}>Report a Sighting!</a></li>
-        <li><a>Report on existing species!</a></li>
-        <li><a>Report new Species!</a></li>
+        <li><a onClick={handleClickForm1}>Report new Species!</a></li>
+        <li><a onClick={handleClickForm2}>Report a Sighting!</a></li>
+        <li><a onClick={handleClickForm3}>Report an existing species!!</a></li>
         </ul>
       </div>
         <div className="navbar-end">
