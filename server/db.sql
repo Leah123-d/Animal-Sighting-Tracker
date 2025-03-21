@@ -1,3 +1,5 @@
+--before submitting ensure we create a new dump file that includes id_seq
+
 -- PostgreSQL database dump
 --
 
@@ -105,3 +107,4 @@ VALUES
 --
 -- PostgreSQL database dump complete
 --
+
