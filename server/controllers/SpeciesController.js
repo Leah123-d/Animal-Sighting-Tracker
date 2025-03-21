@@ -15,7 +15,7 @@ export const getOneSpecies = async  (req, res) => {
     const result = await dbConnection.query(`SELECT * FROM species WHERE common_name = $1`, [common_name]);
 
     if(result.rows.length === 0){
-        return res.send('species not found');
+        return res.send({ "error": "Species not found" });
     }
 
     res.json(result.rows[0]);
@@ -57,7 +57,7 @@ export const deleteSpecies = async (req,res) => {
     const { common_name } = req.params;
     const result = await dbConnection.query("DELETE FROM species WHERE common_name = $1 RETURNING *", [common_name]);
     if(result.rowCount === 0){
-        return res.send(`species not found`);
+        return res.send( { "error": "Species not found" } );
     }
     res.send(`species with common_name ${common_name} has been deleted`);
     } catch (error){
@@ -70,7 +70,7 @@ export const rightJoinSpecies = async(req, res) => {
   try{
     const result = await dbConnection.query(
       "SELECT species.species AS species_name, individuals.nickname AS indiv_nickname, individuals.active_season AS indiv_active FROM species RIGHT JOIN individuals ON species.species = individuals.classification WHERE species.id = $1", [id]);
-    
+
       res.json(result.rows[0]);
   }catch (error){
 
