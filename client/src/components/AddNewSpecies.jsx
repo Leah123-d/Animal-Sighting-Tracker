@@ -61,7 +61,9 @@ function AddNewSpecies({ openForm1, species }){
            <label htmlFor="scientific_name">scientific_name</label>
            <input id="scientific_name" type="text" placeholder="Type here" className="input" name="scientific_name" value={species.scientific_name} onChange={handleChange} />
            <label htmlFor="est_living_in_wild">est_living_in_wild</label>
-           <input id="est_living_in_wild" placeholder="approx number" className="input" name="extras" value={species.est_living_in_wild} onChange={handleChange}></input>
+           <input id="est_living_in_wild" placeholder="approx number" className="input" name="est_living_in_wild" value={species.est_living_in_wild} onChange={handleChange}></input>
+           <label htmlFor="conservation_status_code">conservation_status_code</label>
+           <input id="conservation_status_code" className="input" name="conservation_status_code" value={species.conservation_status_code} onChange={handleChange}></input>
            <div className="mt-6">
            <button className="btn btn-primary btn-block">Add Species</button>
            </div>
