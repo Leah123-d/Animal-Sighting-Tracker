@@ -5,15 +5,17 @@ import { SlPencil } from "react-icons/sl";
 //update this database component
 //will use a get route to display the different databases mapped out
 //at the end will have 3 sets of databases with build in functionalities 
-function DatabaseDisplay({ species, individuals, sightings,fetchSpecies,isEditOpen,setisEditOpen,editData,setEditData}){
+function DatabaseDisplay({ species, individuals, sightings }){
   const [deleteConfirmation, setDeleteConfirmation] = useState("");
+  const [isEditOpen, setisEditOpen] = useState(false);
+  const [editData, setEditData] = useState(null);
 
 
-  const deleteEntry = async (table, identifer) => {
+  const deleteEntry = async (table, identifier) => {
     console.log(`deleting from table: ${table}`);
 
       try{
-      const url = `/${table}/${identifer}`; 
+      const url = `/${table}/${identifier}`; 
       const response = await fetch(url, 
                                   {method: 'DELETE'});
         if(!response.ok){
@@ -27,17 +29,36 @@ function DatabaseDisplay({ species, individuals, sightings,fetchSpecies,isEditOp
       }
     }
 
+    const fetchEntryToEdit = async(table, identifier) => {
+      try{
+        const url = `/${table}/${identifier}`; 
+        const response = await fetch(url);
+        if(!response.ok){throw new Error('counld not find entry')}
+
+        const data = await response.json();
+        setEditData({...data});
+        setisEditOpen(true);
+      }catch(error){
+        console.log(error);
+      }
+    }
+
+  console.log(editData, isEditOpen);
+
     const editEntry = async () => {
         try{
         const url = `/${editData.table}/${editData.identifer}`; 
         const response = await fetch(url, 
                                     {method: 'PUT',
                                       body: JSON.stringify(editData),
+                                      headers: {
+                                        'Content-Type': 'application/json',
+                                      },
                                     });
           if(!response.ok){
             throw new Error('update failed')
           }
-          setisEditOpen(false);
+
           console.log('update successful!');
         }
         catch(error) {
@@ -45,6 +66,8 @@ function DatabaseDisplay({ species, individuals, sightings,fetchSpecies,isEditOp
           //handle error state here too
         }
       }
+  
+      console.log(editData, isEditOpen);
 
   return(
     <div className="databaseContainer">
@@ -78,7 +101,7 @@ function DatabaseDisplay({ species, individuals, sightings,fetchSpecies,isEditOp
                 <td>{element.conservation_status_code}</td>
                 <td>{element.created_at}</td>
                 <td><button onClick={async () => {
-                                                  await fetchSpecies('species', element.common_name);
+                                                  await fetchEntryToEdit('species', element.common_name);
                                                   setisEditOpen(true); }}>
                                                   <SlPencil /></button></td>
                 <td><button onClick={() => deleteEntry("species", element.common_name)} ><TfiTrash /></button></td>
@@ -179,9 +202,10 @@ function DatabaseDisplay({ species, individuals, sightings,fetchSpecies,isEditOp
         <h3>edit entry</h3>
         <input type="text"
         value={editData?.identifer || ""}
-        onChange={((e) => setEditData({...editData, identifier: e.target.value }))}
+        onChange={(e) => setEditData({...editData, identifier: e.target.value })}
         />
         <button onClick={editEntry}>save changes</button>
+        <button onClick={() => setisEditOpen(false)}>cancel</button>
       </div>
     )}
   </div>

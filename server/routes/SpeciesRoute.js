@@ -10,8 +10,8 @@ import { getSpecies,
 
 const router = express.Router();
 
-router.get("/:id", rightJoinSpecies);
 router.get("/:common_name", getOneSpecies);
+router.get("/:id", rightJoinSpecies);
 router.get("/", getSpecies);
 router.post("/", createSpecies);
 router.put("/:common_name", updateSpecies);

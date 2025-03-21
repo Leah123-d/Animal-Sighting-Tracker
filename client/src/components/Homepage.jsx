@@ -12,7 +12,7 @@ function Homepage() {
       console.log("Fetched species join: ", data)
       return setSpeciesJoin([data]);
     } catch(error) {
-      console.error("Error fetching sightings: ", error);
+      console.error(error);
       //setErrorHandle(true); //would want to build out sending this to an error component 
       return [];
     }
@@ -31,8 +31,6 @@ function Homepage() {
       return [];
     }
   };
-
-
 
   useEffect(() => {
     fetchSpeciesJoin();

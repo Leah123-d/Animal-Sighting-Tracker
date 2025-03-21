@@ -4,16 +4,13 @@ import Homepage from './components/Homepage'
 import NavBar from './components/NavBar'
 import DatabaseDisplay from './components/DatabaseDisplay'
 // import AddSightingForm from './components/AddSightingForm'
+import AddNewSpecies from './components/AddNewSpecies'
 // import AddIndividualForm from './components/AddIndividualForm'
-// import AddNewSpecies from './components/AddNewSpecies'
-
 function App() {
   const [species, setSpecies] = useState([]);
   const [individuals,setIndividuals] = useState([]);
   const [sightings, setSightings] = useState([]);
   const [openForm1, setOpenForm1] = useState(false);
-  const [isEditOpen, setisEditOpen] = useState(false);
-  const [editData, setEditData] = useState("");
 
   const handleClickForm1 = (e) => {
     e.preventDefault();
@@ -28,9 +25,7 @@ function App() {
       if(!res.ok) throw new Error("Failed to fetch species");
       const data = await res.json();
       console.log("Fetched species: ", data)
-      setSpecies(data);
-      setEditData({...data});
-      setisEditOpen(true);
+      return setSpecies(data);
     } catch(error) {
       console.error("Error fetching species: ", error);
       //setErrorHandle(true); //would want to build out sending this to an error component 
@@ -80,9 +75,14 @@ function App() {
       < NavBar 
         handleClickForm1={handleClickForm1}/>
       {openForm1 &&
-      < AddSightingForm 
+      < AddNewSpecies 
+        species={species}
         handleClickForm1={handleClickForm1}
         openForm1={openForm1}/>}
+      {/* {openForm1 &&
+      < AddSightingForm 
+        handleClickForm1={handleClickForm1}
+        openForm1={openForm1}/>} */}
        <Homepage />
 
       {/* <h1>Species Data from Database</h1>
@@ -96,11 +96,9 @@ function App() {
       species={species}
       individuals={individuals}
       sightings={sightings}
-      fetchSpecies={fetchSpecies}
-      editData={editData}
-      isEditOpen={isEditOpen}
-      setisEditOpen={setisEditOpen}
-      setEditData={setEditData} />
+       />
+    {/* <AddSightingForm /> */}
+
     </div>
     
   )
