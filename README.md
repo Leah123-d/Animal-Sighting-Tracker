@@ -1,60 +1,65 @@
-# Welcome to Animal Sighting Tracker! 
+🐾 Animal Sighting Tracker
 
-I made this project to demonstrate the skils of buildings a full stack application. This project highlights the use of join queries to return information from multiple tables to the front end. 
+Welcome to Animal Sighting Tracker! This project demonstrates my skills in building a full-stack application, particularly focusing on using join queries to retrieve and display data from multiple tables on the frontend.
 
-## Project Objective:
+🚀 Project Overview
 
-This project utilizes a backend server, created with Express.js. Making calls to an API, displaying the data to the frontend.
+This application consists of a backend server built with Express.js and a frontend that fetches and displays data from an API.
 
-## Technologies used
+🛠️ Technologies Used
 
-React 
-Express.js
-Node.js
-VSCode 
+Frontend: React.js
 
-### Additional Resources
+Backend: Express.js, Node.js
 
+Development Tools: VS Code
 
+📥 Installation Instructions
 
-## Installation Instructions
+1️⃣ Clone the Repository
 
-2. Clone this repository.
-3. Open the cloned repository in a code editor.
+git clone https://github.com/Leah123-d/Animal-Sighting-Tracker.git
+cd Animal-Sighting-Tracker
 
+2️⃣ Install Dependencies
 
-### Environment setup: 
+Run the following commands at the root of the project:
 
-At the root level of your project run the following installation commands 
-
-`````````
 npm install
-`````````
-`````````
-npm install dotenv
-`````````
-`````````
-npm install express
-`````````
+npm install dotenv express
+
+⚙️ How to Run
+
+🖥 Backend Setup
+
+Navigate to the server directory:
+
+cd server
+
+Start the backend server:
+
+node server.js
+
+Verify the backend is running by visiting:
+
+http://localhost:3000/sightings
+
+🌐 Frontend Setup
+
+Navigate to the client directory:
+
+cd client
+
+Start the frontend application:
+
+npm run dev
+
+🔮 Future Improvements
 
 
-### How to run:
-For Backend
-1. cd into the folder server  
-2. In the terminal type ````````` node server.js`````````
 
-To confirm the backend is connection navigate to the URL `````````localhost:3000/sightings`````````
+📸 Project Preview
 
-For Frontend
-1. cd into the folder client
-2. In the terminal type ````````` npm run dev `````````
+(Include screenshots or a demo link here)
 
-
-## Future Implementation: 
-- [ ] 
-
-
-
-## Project Preview: 
-
-
+Thank you for checking out Animal Sighting Tracker! 🐾 If you have any suggestions or improvements, feel free to contribute. 🚀
