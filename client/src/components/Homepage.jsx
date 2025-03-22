@@ -13,8 +13,7 @@ function Homepage() {
       return setSpeciesJoin([data]);
     } catch(error) {
       console.error(error);
-      //setErrorHandle(true); //would want to build out sending this to an error component 
-      return [];
+      //setErrorHandle(true); 
     }
   };
 
@@ -27,8 +26,7 @@ function Homepage() {
       return setSightingsJoin([data]);
     } catch(error) {
       console.error("Error fetching sightings: ", error);
-      //setErrorHandle(true); //would want to build out sending this to an error component 
-      return [];
+      //setErrorHandle(true); 
     }
   };
 

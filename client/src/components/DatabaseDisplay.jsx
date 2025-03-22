@@ -2,9 +2,7 @@ import { useState} from 'react'
 import { TfiTrash } from "react-icons/tfi";
 import { SlPencil } from "react-icons/sl";
 
-//update this database component
-//will use a get route to display the different databases mapped out
-//at the end will have 3 sets of databases with build in functionalities 
+
 function DatabaseDisplay({ species, individuals, sightings }){
   const [deleteConfirmation, setDeleteConfirmation] = useState("");
   const [isEditOpen, setisEditOpen] = useState(false);
@@ -16,8 +14,7 @@ function DatabaseDisplay({ species, individuals, sightings }){
 
       try{
       const url = `/${table}/${identifier}`; 
-      const response = await fetch(url, 
-                                  {method: 'DELETE'});
+      const response = await fetch(url, {method: 'DELETE'});
         if(!response.ok){
           throw new Error('something went wrong')
         }
@@ -25,7 +22,6 @@ function DatabaseDisplay({ species, individuals, sightings }){
       }
       catch(error) {
         console.log(error);
-        //handle error state here too
       }
     }
 
@@ -34,7 +30,6 @@ function DatabaseDisplay({ species, individuals, sightings }){
         const url = `/${table}/${identifier}`; 
         const response = await fetch(url);
         if(!response.ok){throw new Error('counld not find entry')}
-
         const data = await response.json();
         setEditData({...data});
         setisEditOpen(true);
@@ -63,7 +58,6 @@ function DatabaseDisplay({ species, individuals, sightings }){
         }
         catch(error) {
           console.log(error);
-          //handle error state here too
         }
       }
   

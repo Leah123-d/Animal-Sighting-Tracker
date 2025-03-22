@@ -2,7 +2,7 @@ import dbConnection from '../db-connection.js';
 
 export const getSightings = async (req,res) => {
   try{
-      const result = await dbConnection.query('SELECT * FROM sightings;');
+      const result = await dbConnection.query(`SELECT * FROM sightings;`);
       res.json(result.rows);
   } catch (error){
       console.error('error fetching sightings data: ', error);
@@ -28,12 +28,9 @@ export const getOneSighting  = async (req,res) => {
 export const createSighting  = async (req,res) => {
   try{
     const { date_sighted, individual_seen, location_of_sighting, health, sighter_contact, season_spotted } = req.body;
-    const result = await dbConnection.query(
-        'INSERT INTO sightings (date_sighted, individual_seen, location_of_sighting, health, sighter_contact, season_spotted) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
-        [date_sighted, individual_seen, location_of_sighting, health, sighter_contact, season_spotted]
-    );
-    console.log(result);
-    
+    const result = await dbConnection.query(`INSERT INTO sightings (date_sighted, individual_seen, location_of_sighting, 
+                                            health, sighter_contact, season_spotted) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
+                                            [date_sighted, individual_seen, location_of_sighting, health, sighter_contact, season_spotted]);    
     res.json({ message:`new sighting ${result.rows[0].individual_seen} was added with individual_seen ${result.rows[0].date_sighted}`})
     }catch (error) {
         console.error('Error creating new sighting: ', error);
@@ -42,10 +39,12 @@ export const createSighting  = async (req,res) => {
 
 export const updateSighting  = async (req,res) => {
   try{
-    const { individual_seen } = req.params; //how to find the row we want to update
-    const { location_of_sighting } = req.body; //the column we are updating
+    const { individual_seen } = req.params; 
+    const { location_of_sighting } = req.body;
 
-    const result = await dbConnection.query("UPDATE sightings SET location_of_sighting = $1 WHERE individual_seen = $2 RETURNING *", [location_of_sighting, individual_seen]);
+    const result = await dbConnection.query(`UPDATE sightings SET location_of_sighting = $1 
+                                              WHERE individual_seen = $2 RETURNING *`, 
+                                              [location_of_sighting, individual_seen]);
     res.json(result.rows[0]);
   }catch (error) {
     console.error('Error updating sighting: ', error);

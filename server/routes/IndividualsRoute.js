@@ -13,6 +13,6 @@ router.get("/:nickname", getOneIndividual);
 router.post("/", createIndividual);
 router.put("/:nickname", updateIndividual);
 router.delete("/:nickname", deleteIndividual);
-//add 1 function that uses a join it can be a get
+
 
 export default router;

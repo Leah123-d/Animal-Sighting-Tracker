@@ -25,11 +25,11 @@ function AddIndividualForm({ openForm3, individuals }){
     const data = await response.json();
     console.log("fetched data:", data);
 
-    setNewIndividual(data); //storing the database response
+    setNewIndividual(data); 
 
     // if(data.response_code != 0){
     //   console.log("no results found");
-      // setErrorHandle(true); //will come back to setting this error handling depending on response from the backend
+      // setErrorHandle(true); 
     //}
     } catch(error){
       console.error("error fetching data: ", error);

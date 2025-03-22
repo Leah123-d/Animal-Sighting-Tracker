@@ -29,10 +29,10 @@ export const getOneIndividual = async (req,res) => {
 export const createIndividual = async (req,res) => {
   try{
     const { nickname, classification, active_season } = req.body;
-    const result = await dbConnection.query(
-        'INSERT INTO individuals (nickname, classification, active_season) VALUES ($1, $2, $3) RETURNING *',
-        [nickname, classification, active_season]
-    );
+    const result = await dbConnection.query( `INSERT INTO individuals (nickname, 
+                                              classification, active_season) VALUES ($1, $2, $3) 
+                                              RETURNING *`,
+                                              [nickname, classification, active_season]);
     console.log(result);
     //using parameterized quries to prevent SQL injection
 
@@ -44,11 +44,11 @@ export const createIndividual = async (req,res) => {
 }
 export const updateIndividual = async (req,res) => {
   try{
-    const { nickname } = req.params; //how to find the row we want to update
-    const { classification } = req.body; //the column we are updating
+    const { nickname } = req.params; 
+    const { classification } = req.body; 
 
-    const result = await dbConnection.query("UPDATE individuals SET classification = $1 WHERE nickname = $2 RETURNING *", [classification, nickname]);
-    //the return order will impact the result's behavior
+    const result = await dbConnection.query(`UPDATE individuals SET classification = $1 
+                                              WHERE nickname = $2 RETURNING *`, [classification, nickname]);
     res.json(result.rows[0]);
   }catch (error) {
     console.error('Error updating individual: ', error);

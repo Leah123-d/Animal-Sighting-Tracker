@@ -20,11 +20,11 @@ function App() {
   }
   const handleClickForm2 = (e) => {
     e.preventDefault();
-    setOpenForm2((prev) => !prev); //will display form
+    setOpenForm2((prev) => !prev); 
   }
   const handleClickForm3 = (e) => {
     e.preventDefault();
-    setOpenForm3((prev) => !prev); //will display form
+    setOpenForm3((prev) => !prev); 
   }
 
 
@@ -37,7 +37,7 @@ function App() {
       return setSpecies(data);
     } catch(error) {
       console.error("Error fetching species: ", error);
-      //setErrorHandle(true); //would want to build out sending this to an error component 
+      //setErrorHandle(true); //to build out an error component 
       return [];
     }
   };
@@ -51,7 +51,7 @@ function App() {
       return setIndividuals(data);
     } catch(error) {
       console.error("Error fetching individuals: ", error);
-      //setErrorHandle(true); //would want to build out sending this to an error component 
+      //setErrorHandle(true); 
       return [];
     }
   };
@@ -65,7 +65,7 @@ function App() {
       return setSightings(data);
     } catch(error) {
       console.error("Error fetching sightings: ", error);
-      //setErrorHandle(true); //would want to build out sending this to an error component 
+      //setErrorHandle(true); 
       return [];
     }
   };
