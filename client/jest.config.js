@@ -1,5 +1,5 @@
-export default {
-  transform: {
-    "^.+\\.js$": "babel-jest"
-  }
+const config = {
+  testEnvironment: "jsdom",
 };
+
+export default config;

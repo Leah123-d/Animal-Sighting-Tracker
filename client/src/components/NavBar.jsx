@@ -1,3 +1,4 @@
+import React from 'react';
 import { LuBinoculars } from "react-icons/lu";
 
 function NavBar({ handleClickForm1,handleClickForm2,handleClickForm3 }){
